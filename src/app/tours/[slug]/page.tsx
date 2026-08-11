@@ -216,7 +216,7 @@ export default function TourDetailPage() {
                 <div style={{ marginBottom: 32 }}>
                   <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-text)', marginBottom: 12 }}>Highlights</h2>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: 10 }}>
-                    {tour.highlights.map((h, i) => (
+                    {(tour.highlights || []).map((h, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 0' }}>
                         <CheckCircle size={18} style={{ color: 'var(--color-primary)', flexShrink: 0 }} />
                         <span style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>{h}</span>
@@ -231,7 +231,7 @@ export default function TourDetailPage() {
                     <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
                       <CheckCircle size={18} style={{ color: 'var(--color-success)' }} /> What's Included
                     </h3>
-                    {tour.inclusions.map((item, i) => (
+                    {(tour.inclusions || []).map((item, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0', fontSize: 14, color: 'var(--color-text-secondary)' }}>
                         <CheckCircle size={14} style={{ color: 'var(--color-success)' }} /> {item}
                       </div>
@@ -241,7 +241,7 @@ export default function TourDetailPage() {
                     <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text)', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
                       <XCircle size={18} style={{ color: 'var(--color-error)' }} /> Not Included
                     </h3>
-                    {tour.exclusions.map((item, i) => (
+                    {(tour.exclusions || []).map((item, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0', fontSize: 14, color: 'var(--color-text-secondary)' }}>
                         <XCircle size={14} style={{ color: 'var(--color-error)' }} /> {item}
                       </div>
@@ -275,7 +275,7 @@ export default function TourDetailPage() {
                       </div>
                       <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', lineHeight: 1.7, marginBottom: 12 }}>{tour.host.bio}</p>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                        {tour.host.expertise.map((exp, i) => (
+                        {(tour.host.expertise || []).map((exp, i) => (
                           <span key={i} className="badge badge-primary">{exp}</span>
                         ))}
                       </div>
@@ -303,7 +303,7 @@ export default function TourDetailPage() {
                     <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--color-text)', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8 }}>
                       <AlertTriangle size={16} style={{ color: 'var(--color-warning)' }} /> Safety Info
                     </h3>
-                    {tour.safetyInfo.map((s, i) => (
+                    {(tour.safetyInfo || []).map((s, i) => (
                       <div key={i} style={{ fontSize: 13, color: 'var(--color-text-secondary)', padding: '3px 0' }}>• {s}</div>
                     ))}
                   </div>
@@ -318,7 +318,7 @@ export default function TourDetailPage() {
                       <Users size={16} style={{ color: 'var(--color-primary)' }} /> Age & Accessibility
                     </h3>
                     <p style={{ fontSize: 13, color: 'var(--color-text-secondary)', marginBottom: 4 }}>{tour.ageRestriction}</p>
-                    {tour.accessibility.map((a, i) => (
+                    {(tour.accessibility || []).map((a, i) => (
                       <div key={i} style={{ fontSize: 13, color: 'var(--color-text-secondary)', padding: '2px 0' }}>• {a}</div>
                     ))}
                   </div>
@@ -336,10 +336,10 @@ export default function TourDetailPage() {
                     position: 'absolute', left: 11, top: 8, bottom: 8,
                     width: 2, background: 'var(--color-border)',
                   }} />
-                  {tour.itinerary.map((item, i) => (
+                  {(tour.itinerary || []).map((item, i) => (
                     <div key={i} style={{
                       position: 'relative', marginBottom: 28,
-                      paddingBottom: i < tour.itinerary.length - 1 ? 28 : 0,
+                      paddingBottom: i < (tour.itinerary || []).length - 1 ? 28 : 0,
                     }}>
                       {/* Dot */}
                       <div style={{
@@ -435,7 +435,7 @@ export default function TourDetailPage() {
               <div className="animate-fade-in">
                 <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--color-text)', marginBottom: 24 }}>Frequently Asked Questions</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {tour.faqs.map((faq, i) => (
+                  {(tour.faqs || []).map((faq, i) => (
                     <div key={i} style={{
                       border: '1px solid var(--color-border-light)',
                       borderRadius: 'var(--radius-lg)',
@@ -508,7 +508,7 @@ export default function TourDetailPage() {
                     style={{ paddingLeft: 36 }}
                   >
                     <option value="">Choose a date</option>
-                    {tour.availableDates.map(d => (
+                    {(tour.availableDates || []).map(d => (
                       <option key={d} value={d}>{new Date(d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</option>
                     ))}
                   </select>
@@ -521,7 +521,7 @@ export default function TourDetailPage() {
                   Select Time
                 </label>
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  {tour.timeSlots.map(t => (
+                  {(tour.timeSlots || []).map(t => (
                     <button
                       key={t}
                       onClick={() => setSelectedTime(t)}
