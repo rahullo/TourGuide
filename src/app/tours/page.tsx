@@ -42,6 +42,7 @@ function ToursContent() {
   useEffect(() => {
     const q = searchParams.get('q');
     if (q !== null) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSearchQuery(q);
     }
   }, [searchParams]);

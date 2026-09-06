@@ -19,7 +19,7 @@ interface MongooseCache {
 
 // Use global cache to avoid reconnecting on every API call in dev
 declare global {
-  // eslint-disable-next-line no-var
+   
   var mongooseCache: MongooseCache | undefined;
 }
 

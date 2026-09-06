@@ -46,6 +46,7 @@ export default function HomePage() {
   // Rotate hero backgrounds
   useEffect(() => {
     // Pick a random starting index on each page load
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setBgIndex(Math.floor(Math.random() * heroBackgrounds.length));
   }, []);
 
