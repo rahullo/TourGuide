@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Calendar, MapPin, Users, DollarSign, Download, MessageCircle, XCircle } from 'lucide-react';
+import { Calendar, MapPin, Users, CreditCard, Download, MessageCircle, XCircle } from 'lucide-react';
 import { mockBookings, Booking } from '@/lib/data';
+import { useCurrency } from '@/lib/CurrencyContext';
 
 export default function BookingsPage() {
+  const { formatPrice } = useCurrency();
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past' | 'cancelled'>('upcoming');
 
   const filteredBookings = mockBookings.filter(b => {
@@ -72,7 +74,7 @@ export default function BookingsPage() {
                       <MapPin size={16} style={{ color: 'var(--color-text-tertiary)' }} /> View Meeting Point
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'var(--color-text-secondary)' }}>
-                      <DollarSign size={16} style={{ color: 'var(--color-text-tertiary)' }} /> {booking.currency} {booking.total} Total
+                      <CreditCard size={16} style={{ color: 'var(--color-text-tertiary)' }} /> {formatPrice(booking.total)} Total
                     </div>
                   </div>
 

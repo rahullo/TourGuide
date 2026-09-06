@@ -1,11 +1,14 @@
 'use client';
 
-import { DollarSign, Users, Star, ArrowUpRight, ArrowDownRight, Calendar, Activity } from 'lucide-react';
+import { TrendingUp, Users, Star, ArrowUpRight, ArrowDownRight, Calendar, Activity } from 'lucide-react';
 import { operatorStats } from '@/lib/data';
+import { useCurrency } from '@/lib/CurrencyContext';
 
 export default function OperatorDashboard() {
+  const { formatPrice } = useCurrency();
+
   const stats = [
-    { label: 'Total Revenue', value: `$${(operatorStats.totalRevenue / 1000).toFixed(1)}k`, trend: '+12.5%', isPositive: true, icon: <DollarSign size={20} /> },
+    { label: 'Total Revenue', value: formatPrice(operatorStats.totalRevenue), trend: '+12.5%', isPositive: true, icon: <TrendingUp size={20} /> },
     { label: 'Total Bookings', value: operatorStats.totalBookings, trend: '+8.2%', isPositive: true, icon: <Calendar size={20} /> },
     { label: 'Average Rating', value: operatorStats.avgRating, trend: '+0.1', isPositive: true, icon: <Star size={20} /> },
     { label: 'Conversion Rate', value: `${operatorStats.conversionRate}%`, trend: '-1.2%', isPositive: false, icon: <Activity size={20} /> },
@@ -75,7 +78,7 @@ export default function OperatorDashboard() {
                   <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text)' }}>New booking: Rome Tour</div>
                   <div style={{ fontSize: 12, color: 'var(--color-text-tertiary)' }}>2 guests • Oct 15</div>
                 </div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-primary)' }}>+$118</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-primary)' }}>+{formatPrice(118)}</div>
               </div>
             ))}
           </div>

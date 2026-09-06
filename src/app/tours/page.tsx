@@ -42,7 +42,6 @@ function ToursContent() {
   useEffect(() => {
     const q = searchParams.get('q');
     if (q !== null) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSearchQuery(q);
     }
   }, [searchParams]);
@@ -97,6 +96,7 @@ function ToursContent() {
       fetchTours();
     }, 300);
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, sortBy, selectedCategories, selectedDifficulty, priceRange, page]);
 
   const activeFilterCount = selectedCategories.length + selectedDifficulty.length + (priceRange[0] > 0 || priceRange[1] < 500 ? 1 : 0);
@@ -325,8 +325,8 @@ function ToursContent() {
                     style={{ width: '100%', accentColor: 'var(--color-primary)' }}
                   />
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--color-text-secondary)', marginTop: 4 }}>
-                    <span>${priceRange[0]}</span>
-                    <span>${priceRange[1]}+</span>
+                    <span>{formatPrice(priceRange[0])}</span>
+                    <span>{formatPrice(priceRange[1])}+</span>
                   </div>
                 </div>
 

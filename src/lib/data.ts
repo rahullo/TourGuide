@@ -390,7 +390,7 @@ export const tours: Tour[] = [
     location: 'Barcelona', country: 'Spain',
     coordinates: { lat: 41.4036, lng: 2.1744 },
     images: [
-      'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1562883676-8c7feb83f09b?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1564221710304-0b37c8b9d729?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1579282240050-352db0a14c21?w=800&h=600&fit=crop',
@@ -433,7 +433,7 @@ export const tours: Tour[] = [
     coordinates: { lat: 40.7128, lng: -74.0060 },
     images: [
       'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1492666673288-3c4b4f1a6b11?w=800&h=600&fit=crop',
     ],
@@ -473,7 +473,7 @@ export const tours: Tour[] = [
     location: 'Monte Carlo', country: 'Monaco',
     coordinates: { lat: 43.7384, lng: 7.4246 },
     images: [
-      'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1589405858862-2ac9031448b2?w=800&h=600&fit=crop',
       'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&h=600&fit=crop',
     ],
     category: 'City Tours', tags: ['F1', 'Luxury', 'Walking Tour', 'History'],
@@ -987,7 +987,7 @@ export const tours: Tour[] = [
     coordinates: { lat: 1.2814, lng: 103.8636 },
     images: [
       'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?w=800&h=600&fit=crop',
     ],
     category: 'Food & Wine', tags: ['Street Food', 'Night Tour', 'Gardens', 'Light Show'],
     duration: '5 hours', durationHours: 5,

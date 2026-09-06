@@ -8,6 +8,7 @@ import {
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import Logo from '@/components/Logo';
 
 function RegisterForm() {
   const router = useRouter();
@@ -78,6 +79,13 @@ function RegisterForm() {
         order: 2,
       }}>
         <div style={{ width: '100%', maxWidth: 420, margin: '0 auto' }}>
+          <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 28 }}>
+            <Logo size={36} variant="dark" />
+            <span style={{ fontSize: 24, fontWeight: 800, color: 'var(--color-text)', letterSpacing: '-0.5px' }}>
+              Tour<span style={{ color: 'var(--color-primary)' }}>Guide</span>
+            </span>
+          </Link>
+
           <h1 style={{ fontSize: 28, fontWeight: 700, color: 'var(--color-text)', marginBottom: 8 }}>Create an account</h1>
           <p style={{ fontSize: 15, color: 'var(--color-text-secondary)', marginBottom: 24 }}>
             Already have an account? <Link href="/login" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>Log in</Link>

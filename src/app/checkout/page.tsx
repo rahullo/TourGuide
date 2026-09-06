@@ -1,15 +1,18 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   CreditCard, ShieldCheck, CheckCircle2, ChevronRight,
   User, Mail, Phone, Calendar, Clock, MapPin, Users
 } from 'lucide-react';
 import { getTourBySlug } from '@/lib/data';
+import { useCurrency } from '@/lib/CurrencyContext';
 
 function CheckoutContent() {
+  const router = useRouter();
+  const { formatPrice, currency } = useCurrency();
   const searchParams = useSearchParams();
   const slug = searchParams.get('tour');
   const date = searchParams.get('date');
@@ -19,13 +22,21 @@ function CheckoutContent() {
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [tourData, setTourData] = useState(() => slug ? getTourBySlug(slug) : null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
-  }, []);
+    if (slug && !tourData) {
+      fetch(`/api/tours/${slug}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data?.tour) setTourData(data.tour);
+        })
+        .catch(console.error);
+    }
+  }, [slug, tourData]);
 
-  const tour = slug ? getTourBySlug(slug) : null;
+  const tour = tourData;
 
   if (!mounted) return null; // Prevent hydration errors with searchParams
 
@@ -54,7 +65,7 @@ function CheckoutContent() {
       setLoading(false);
       setSuccess(true);
       setTimeout(() => {
-        window.location.href = `/account/bookings?new=true`;
+        router.push('/account/bookings?new=true');
       }, 2000);
     }, 2000);
   };
@@ -205,24 +216,24 @@ function CheckoutContent() {
               <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--color-text)', marginBottom: 16 }}>Price Details</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--color-text-secondary)' }}>
-                  <span>${tour.price} × {guests} guests</span>
-                  <span>${subtotal.toFixed(2)}</span>
+                  <span>{formatPrice(tour.price)} × {guests} {guests === 1 ? 'guest' : 'guests'}</span>
+                  <span>{formatPrice(subtotal)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--color-text-secondary)' }}>
                   <span>Service fee</span>
-                  <span>${serviceFee.toFixed(2)}</span>
+                  <span>{formatPrice(serviceFee)}</span>
                 </div>
                 {discount > 0 && (
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--color-success)' }}>
                     <span>Discount applied</span>
-                    <span>-${discount.toFixed(2)}</span>
+                    <span>-{formatPrice(discount)}</span>
                   </div>
                 )}
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', paddingTop: 20, borderTop: '2px solid var(--color-border)', marginBottom: 24 }}>
-                <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text)' }}>Total (USD)</span>
-                <span style={{ fontSize: 24, fontWeight: 800, color: 'var(--color-primary)' }}>${total.toFixed(2)}</span>
+                <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text)' }}>Total ({currency})</span>
+                <span style={{ fontSize: 24, fontWeight: 800, color: 'var(--color-primary)' }}>{formatPrice(total)}</span>
               </div>
 
               <button type="submit" disabled={loading} className="btn btn-primary btn-lg" style={{ width: '100%', justifyContent: 'center' }}>

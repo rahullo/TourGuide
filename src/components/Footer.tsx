@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { MapPin, Mail, Phone, Globe, Camera, MessageCircle, Video, Share2, ChevronRight } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 export default function Footer() {
   return (
@@ -19,15 +20,10 @@ export default function Footer() {
         }}>
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-              <div style={{
-                width: 36, height: 36, borderRadius: 'var(--radius-md)',
-                background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-light))',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'white', fontWeight: 800, fontSize: 16, fontFamily: "'Playfair Display', serif"
-              }}>T</div>
-              <span style={{ fontSize: 18, fontWeight: 700, color: 'var(--color-text)' }}>
-                Tour<span style={{ color: 'var(--color-primary-light)' }}>Guide</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <Logo size={32} variant="dark" />
+              <span style={{ fontSize: 20, fontWeight: 800, color: 'var(--color-text)', letterSpacing: '-0.5px' }}>
+                Tour<span style={{ color: 'var(--color-primary)' }}>Guide</span>
               </span>
             </div>
             <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', lineHeight: 1.7, marginBottom: 20 }}>

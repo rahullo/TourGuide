@@ -5,19 +5,24 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTheme } from '@/lib/theme';
 import { useSession, signOut } from 'next-auth/react';
+import { useCurrency, CURRENCY_OPTIONS, CurrencyType } from '@/lib/CurrencyContext';
 import {
   Search, Menu, X, Heart, User, Globe, Sun, Moon,
-  MapPin, ChevronDown, Bell, ShoppingBag, LogOut, Compass, Settings
+  MapPin, ChevronDown, Bell, ShoppingBag, LogOut, Compass, Settings, Check
 } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
+  const { currency, symbol, setCurrency } = useCurrency();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { data: session, status } = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [currencyOpen, setCurrencyOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const currencyRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -30,18 +35,21 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Click-outside to close dropdown
+  // Click-outside to close dropdowns
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setDropdownOpen(false);
       }
+      if (currencyRef.current && !currencyRef.current.contains(e.target as Node)) {
+        setCurrencyOpen(false);
+      }
     }
-    if (dropdownOpen) {
+    if (dropdownOpen || currencyOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [dropdownOpen]);
+  }, [dropdownOpen, currencyOpen]);
 
   // Should we show "List Your Tour"? Only for unauthenticated users or guides
   const showListTourButton = !session || userRole === 'guide' || userRole === 'admin';
@@ -65,19 +73,14 @@ export default function Header() {
       >
         <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-            <div style={{
-              width: 38, height: 38, borderRadius: 'var(--radius-md)',
-              background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-light))',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'white', fontWeight: 800, fontSize: 18, fontFamily: "'Playfair Display', serif"
-            }}>T</div>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <Logo size={34} scrolled={scrolled} />
             <span style={{
-              fontSize: 20, fontWeight: 700, color: scrolled ? 'var(--color-text)' : 'white',
+              fontSize: 21, fontWeight: 800, color: scrolled ? 'var(--color-text)' : 'white',
               transition: 'color var(--transition-base)',
               letterSpacing: '-0.5px'
             }}>
-              Tour<span style={{ color: 'var(--color-primary-light)' }}>Guide</span>
+              Tour<span style={{ color: scrolled ? 'var(--color-primary)' : 'var(--color-primary-light)' }}>Guide</span>
             </span>
           </Link>
 
@@ -113,6 +116,67 @@ export default function Header() {
             >
               <Search size={18} />
             </button>
+
+            {/* Currency Selector */}
+            <div ref={currencyRef} style={{ position: 'relative' }} className="hide-mobile">
+              <button
+                onClick={() => setCurrencyOpen(!currencyOpen)}
+                className="btn btn-secondary"
+                style={{
+                  background: scrolled ? 'var(--color-bg-tertiary)' : 'rgba(255,255,255,0.15)',
+                  color: scrolled ? 'var(--color-text)' : 'white',
+                  borderColor: scrolled ? 'var(--color-border)' : 'rgba(255,255,255,0.3)',
+                  fontSize: 13, padding: '6px 12px', gap: 6,
+                  fontWeight: 600,
+                }}
+                aria-label="Select currency"
+              >
+                <Globe size={15} />
+                <span>{currency} ({symbol})</span>
+                <ChevronDown size={13} style={{ transform: currencyOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+
+              {currencyOpen && (
+                <div style={{
+                  position: 'absolute', top: 'calc(100% + 8px)', right: 0,
+                  background: 'var(--color-surface)', border: '1px solid var(--color-border)',
+                  borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-xl)',
+                  width: 170, overflow: 'hidden', zIndex: 100,
+                  animation: 'fadeInUp 0.15s ease-out',
+                  padding: '6px 0',
+                }}>
+                  <div style={{ padding: '6px 14px', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', color: 'var(--color-text-tertiary)', letterSpacing: '0.05em' }}>
+                    Select Currency
+                  </div>
+                  {CURRENCY_OPTIONS.map(opt => (
+                    <button
+                      key={opt.code}
+                      onClick={() => {
+                        setCurrency(opt.code);
+                        setCurrencyOpen(false);
+                      }}
+                      style={{
+                        width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        padding: '8px 14px', border: 'none', background: currency === opt.code ? 'var(--color-primary-50)' : 'transparent',
+                        color: currency === opt.code ? 'var(--color-primary)' : 'var(--color-text)',
+                        fontSize: 13, fontWeight: currency === opt.code ? 700 : 500,
+                        cursor: 'pointer', textAlign: 'left',
+                        transition: 'background var(--transition-fast)',
+                      }}
+                      onMouseEnter={e => {
+                        if (currency !== opt.code) e.currentTarget.style.background = 'var(--color-bg-tertiary)';
+                      }}
+                      onMouseLeave={e => {
+                        if (currency !== opt.code) e.currentTarget.style.background = 'transparent';
+                      }}
+                    >
+                      <span>{opt.code}</span>
+                      <span style={{ color: 'var(--color-text-secondary)', fontWeight: 600 }}>{opt.symbol}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Theme Toggle */}
             <button
@@ -312,7 +376,29 @@ export default function Header() {
               ))}
             </nav>
 
-            <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {/* Mobile Currency Selector */}
+            <div style={{ marginTop: 16, padding: '12px 14px', background: 'var(--color-bg-tertiary)', borderRadius: 'var(--radius-md)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <Globe size={15} /> Currency
+                </span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-primary)' }}>{currency} ({symbol})</span>
+              </div>
+              <select
+                value={currency}
+                onChange={e => setCurrency(e.target.value as CurrencyType)}
+                className="input"
+                style={{ width: '100%', padding: '8px 12px', fontSize: 13, background: 'var(--color-surface)' }}
+              >
+                {CURRENCY_OPTIONS.map(opt => (
+                  <option key={opt.code} value={opt.code}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
               <button onClick={toggleTheme} className="btn btn-secondary" style={{ justifyContent: 'center' }}>
                 {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
                 {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}

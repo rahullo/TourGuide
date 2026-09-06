@@ -481,10 +481,10 @@ export default function TourDetailPage() {
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
                   {tour.originalPrice && (
                     <span style={{ fontSize: 16, color: 'var(--color-text-tertiary)', textDecoration: 'line-through' }}>
-                      ${tour.originalPrice}
+                      {formatPrice(tour.originalPrice)}
                     </span>
                   )}
-                  <span style={{ fontSize: 32, fontWeight: 800, color: 'var(--color-primary)' }}>${tour.price}</span>
+                  <span style={{ fontSize: 32, fontWeight: 800, color: 'var(--color-primary)' }}>{formatPrice(tour.price)}</span>
                   <span style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>/ person</span>
                 </div>
                 {tour.originalPrice && (
@@ -584,17 +584,17 @@ export default function TourDetailPage() {
                 padding: 16, marginBottom: 16,
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 8 }}>
-                  <span>${tour.price} × {guests} guests</span>
-                  <span>${totalPrice}</span>
+                  <span>{formatPrice(tour.price)} × {guests} {guests === 1 ? 'guest' : 'guests'}</span>
+                  <span>{formatPrice(totalPrice)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 8 }}>
                   <span>Service fee</span>
-                  <span>${Math.round(totalPrice * 0.08)}</span>
+                  <span>{formatPrice(Math.round(totalPrice * 0.08))}</span>
                 </div>
                 {tour.originalPrice && (
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--color-success)', marginBottom: 8 }}>
                     <span>Discount</span>
-                    <span>-${(tour.originalPrice - tour.price) * guests}</span>
+                    <span>-{formatPrice((tour.originalPrice - tour.price) * guests)}</span>
                   </div>
                 )}
                 <div style={{
@@ -604,7 +604,7 @@ export default function TourDetailPage() {
                   fontSize: 16, fontWeight: 700, color: 'var(--color-text)',
                 }}>
                   <span>Total</span>
-                  <span>${totalPrice + Math.round(totalPrice * 0.08)}</span>
+                  <span>{formatPrice(totalPrice + Math.round(totalPrice * 0.08))}</span>
                 </div>
               </div>
 

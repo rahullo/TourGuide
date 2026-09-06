@@ -42,7 +42,7 @@ export const globalDestinations: Destination[] = [
   { id: 'g22', name: 'Santorini', country: 'Greece', image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&h=400&fit=crop', tourCount: 289 },
   { id: 'g23', name: 'Athens', country: 'Greece', image: 'https://images.unsplash.com/photo-1555993539-1732b0258235?w=600&h=400&fit=crop', tourCount: 340 },
   { id: 'g24', name: 'Mykonos', country: 'Greece', image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&h=400&fit=crop', tourCount: 175 },
-  { id: 'g25', name: 'Crete', country: 'Greece', image: 'https://images.unsplash.com/photo-1590011987620-8b8b8b8b8b8b?w=600&h=400&fit=crop', tourCount: 210 },
+  { id: 'g25', name: 'Crete', country: 'Greece', image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=600&h=400&fit=crop', tourCount: 210 },
 
   // Netherlands
   { id: 'g26', name: 'Amsterdam', country: 'Netherlands', image: 'https://images.unsplash.com/photo-1517736996303-4e64a4f87399?w=600&h=400&fit=crop', tourCount: 340 },
@@ -79,15 +79,15 @@ export const globalDestinations: Destination[] = [
   { id: 'g49', name: 'Krakow', country: 'Poland', image: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=600&h=400&fit=crop', tourCount: 175 },
   { id: 'g50', name: 'Dublin', country: 'Ireland', image: 'https://images.unsplash.com/photo-1549918864-48ac978761a4?w=600&h=400&fit=crop', tourCount: 220 },
   { id: 'g50a', name: 'Monte Carlo', country: 'Monaco', image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&h=400&fit=crop', tourCount: 78 },
-  { id: 'g50b', name: 'Valletta', country: 'Malta', image: 'https://images.unsplash.com/photo-1555990793-da11153b2473?w=600&h=400&fit=crop', tourCount: 95 },
-  { id: 'g50c', name: 'Luxembourg City', country: 'Luxembourg', image: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=600&h=400&fit=crop', tourCount: 65 },
-  { id: 'g50d', name: 'Kotor', country: 'Montenegro', image: 'https://images.unsplash.com/photo-1555990538-2df8b1be4bdc?w=600&h=400&fit=crop', tourCount: 72 },
-  { id: 'g50e', name: 'Tallinn', country: 'Estonia', image: 'https://images.unsplash.com/photo-1559511260-66a68e7c2a2d?w=600&h=400&fit=crop', tourCount: 88 },
-  { id: 'g50f', name: 'Riga', country: 'Latvia', image: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=600&h=400&fit=crop', tourCount: 75 },
-  { id: 'g50g', name: 'Vilnius', country: 'Lithuania', image: 'https://images.unsplash.com/photo-1519197924294-4ba991a11128?w=600&h=400&fit=crop', tourCount: 82 },
-  { id: 'g50h', name: 'Ljubljana', country: 'Slovenia', image: 'https://images.unsplash.com/photo-1555990538-2df8b1be4bdc?w=600&h=400&fit=crop', tourCount: 68 },
-  { id: 'g50i', name: 'Bucharest', country: 'Romania', image: 'https://images.unsplash.com/photo-1549918864-48ac978761a4?w=600&h=400&fit=crop', tourCount: 92 },
-  { id: 'g50j', name: 'Sofia', country: 'Bulgaria', image: 'https://images.unsplash.com/photo-1519197924294-4ba991a11128?w=600&h=400&fit=crop', tourCount: 78 },
+  { id: 'g50b', name: 'Valletta', country: 'Malta', image: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&h=400&fit=crop', tourCount: 95 },
+  { id: 'g50c', name: 'Luxembourg City', country: 'Luxembourg', image: 'https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=600&h=400&fit=crop', tourCount: 65 },
+  { id: 'g50d', name: 'Kotor', country: 'Montenegro', image: 'https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=600&h=400&fit=crop', tourCount: 72 },
+  { id: 'g50e', name: 'Tallinn', country: 'Estonia', image: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=600&h=400&fit=crop', tourCount: 88 },
+  { id: 'g50f', name: 'Riga', country: 'Latvia', image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=600&h=400&fit=crop', tourCount: 75 },
+  { id: 'g50g', name: 'Vilnius', country: 'Lithuania', image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&h=400&fit=crop', tourCount: 82 },
+  { id: 'g50h', name: 'Ljubljana', country: 'Slovenia', image: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=600&h=400&fit=crop', tourCount: 68 },
+  { id: 'g50i', name: 'Bucharest', country: 'Romania', image: 'https://images.unsplash.com/photo-1584646098378-0874589d76b1?w=600&h=400&fit=crop', tourCount: 92 },
+  { id: 'g50j', name: 'Sofia', country: 'Bulgaria', image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&h=400&fit=crop', tourCount: 78 },
 
   // ══════════════════════════ ASIA ══════════════════════════
   // India
@@ -146,7 +146,7 @@ export const globalDestinations: Destination[] = [
   { id: 'g91', name: 'Cappadocia', country: 'Turkey', image: 'https://images.unsplash.com/photo-1641128324972-af3212f0f6bd?w=600&h=400&fit=crop', tourCount: 185 },
   { id: 'g92', name: 'Petra', country: 'Jordan', image: 'https://images.unsplash.com/photo-1579606032821-4e6161c81571?w=600&h=400&fit=crop', tourCount: 110 },
   { id: 'g93', name: 'Jerusalem', country: 'Israel', image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&h=400&fit=crop', tourCount: 215 },
-  { id: 'g94', name: 'Muscat', country: 'Oman', image: 'https://images.unsplash.com/photo-1597040663342-45b6ba68fa2d?w=600&h=400&fit=crop', tourCount: 85 },
+  { id: 'g94', name: 'Muscat', country: 'Oman', image: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=600&h=400&fit=crop', tourCount: 85 },
 
   // China
   { id: 'g95', name: 'Beijing', country: 'China', image: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=600&h=400&fit=crop', tourCount: 380 },

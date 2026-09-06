@@ -9,10 +9,19 @@ import AuthProvider from "@/components/AuthProvider";
 export const metadata: Metadata = {
   title: "TourGuide — Discover Unforgettable Experiences Worldwide",
   description: "Book verified tours and activities with trusted local guides. From food tours to adventures, find and book your perfect experience with instant confirmation.",
-  keywords: "tours, travel, experiences, activities, local guides, tour booking, adventure, food tours, cultural tours",
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/icon-192.png' },
+    ],
+  },
   openGraph: {
     title: "TourGuide — Discover Unforgettable Experiences Worldwide",
     description: "Book verified tours and activities with trusted local guides.",
+    images: ['/logo.png'],
     type: "website",
   },
 };

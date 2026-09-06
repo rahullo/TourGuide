@@ -3,15 +3,36 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useSession } from 'next-auth/react';
 
-type CurrencyType = 'USD' | 'EUR' | 'GBP' | 'INR' | 'JPY' | 'AUD' | 'CAD' | 'CHF' | 'SGD' | 'AED';
+export type CurrencyType = 'USD' | 'EUR' | 'GBP' | 'INR' | 'JPY' | 'AUD' | 'CAD' | 'CHF' | 'SGD' | 'AED';
 
-interface CurrencyContextProps {
+export interface CurrencyOption {
+  code: CurrencyType;
+  symbol: string;
+  label: string;
+}
+
+export const CURRENCY_OPTIONS: CurrencyOption[] = [
+  { code: 'USD', symbol: '$', label: 'USD ($)' },
+  { code: 'INR', symbol: '₹', label: 'INR (₹)' },
+  { code: 'EUR', symbol: '€', label: 'EUR (€)' },
+  { code: 'GBP', symbol: '£', label: 'GBP (£)' },
+  { code: 'JPY', symbol: '¥', label: 'JPY (¥)' },
+  { code: 'AUD', symbol: 'A$', label: 'AUD (A$)' },
+  { code: 'CAD', symbol: 'C$', label: 'CAD (C$)' },
+  { code: 'CHF', symbol: 'CHF', label: 'CHF' },
+  { code: 'SGD', symbol: 'S$', label: 'SGD (S$)' },
+  { code: 'AED', symbol: 'د.إ', label: 'AED (د.إ)' },
+];
+
+export interface CurrencyContextProps {
   currency: CurrencyType;
+  symbol: string;
+  rate: number;
   setCurrency: (curr: CurrencyType) => void;
   formatPrice: (usdPrice: number) => string;
 }
 
-const EXCHANGE_RATES: Record<CurrencyType, number> = {
+export const EXCHANGE_RATES: Record<CurrencyType, number> = {
   USD: 1,
   EUR: 0.92,
   GBP: 0.79,
@@ -24,7 +45,7 @@ const EXCHANGE_RATES: Record<CurrencyType, number> = {
   AED: 3.67,
 };
 
-const CURRENCY_SYMBOLS: Record<CurrencyType, string> = {
+export const CURRENCY_SYMBOLS: Record<CurrencyType, string> = {
   USD: '$',
   EUR: '€',
   GBP: '£',
@@ -77,18 +98,19 @@ export function CurrencyProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const formatPrice = (usdPrice: number) => {
-    const rate = EXCHANGE_RATES[currency] || 1;
-    const symbol = CURRENCY_SYMBOLS[currency] || '$';
-    const converted = usdPrice * rate;
+  const symbol = CURRENCY_SYMBOLS[currency] || '$';
+  const rate = EXCHANGE_RATES[currency] || 1;
 
-    // Use toLocaleString to get nice formatting (e.g. 1,000)
-    // For JPY and INR, usually 0 decimal places. Others usually 0 or 2, but we'll stick to 0 for simplicity like the original design.
+  const formatPrice = (usdPrice: number) => {
+    if (usdPrice == null || isNaN(usdPrice)) {
+      return `${symbol}0`;
+    }
+    const converted = usdPrice * rate;
     return `${symbol}${Math.round(converted).toLocaleString('en-US')}`;
   };
 
   return (
-    <CurrencyContext.Provider value={{ currency, setCurrency, formatPrice }}>
+    <CurrencyContext.Provider value={{ currency, symbol, rate, setCurrency, formatPrice }}>
       {children}
     </CurrencyContext.Provider>
   );
